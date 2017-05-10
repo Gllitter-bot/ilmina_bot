@@ -1,5 +1,4 @@
 import discord
-import sys
 
 client = discord.Client()
 
@@ -22,7 +21,8 @@ async def on_message(message):
         await client.send_message(message.channel, "呼んだ？")
 
     if message.content.startswith("!shutdown"):
-        print("シャットダウン")
-        sys.exit() #プログラムの終了
+        await client.send_message(message.channel, "さよなら～")
+        await client.close()
+        print("終了しました")
 
 client.run('token')
