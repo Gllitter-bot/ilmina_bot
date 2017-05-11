@@ -25,4 +25,4 @@ async def on_message(message):
         await client.logout() # ログアウトとプログラムの終了
         print("終了しました")
 
-client.run('token')
+client.run('TOKEN_PHRASE')
