@@ -1,12 +1,11 @@
 import discord
-import sys
 
 client = discord.Client()
 
 
 @client.event
 async def on_ready():  # Botの立ち上げ
-    print("ログイン完了")
+    print("起動しました")
     print("-" * 30)
     print("ユーザー名:", client.user.name)
     print("ユーザーID:", client.user.id)
@@ -21,8 +20,9 @@ async def on_message(message):
     if message.content.startswith("イルミナ"):
         await client.send_message(message.channel, "呼んだ？")
 
-    if message.content.startswith("!shutdown"):
-        print("シャットダウン")
-        sys.exit() #プログラムの終了
+    if message.content.startswith("!exit"):
+        await client.send_message(message.channel, "さよなら～")
+        await client.logout() # ログアウトとプログラムの終了
+        print("終了しました")
 
 client.run('token')
