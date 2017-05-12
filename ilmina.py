@@ -1,3 +1,4 @@
+import codecs
 import discord
 
 client = discord.Client()
@@ -24,5 +25,17 @@ async def on_message(message):
         await client.send_message(message.channel, "さよなら～")
         await client.logout() # ログアウトとプログラムの終了
         print("終了しました")
+
+    f = {}
+
+    with codecs.open('template.txt', 'r', 'utf-8') as text :
+        for line in text :
+            line = line.rstrip('\r\n')
+            fields = line.split('^')
+            f[fields[0]] = fields[1]
+
+    if message.content in f:
+        await client.send_message(message.channel, '{}'.format(f[message.content]))
+
 
 client.run('TOKEN_PHRASE')
