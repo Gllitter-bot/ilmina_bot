@@ -27,12 +27,13 @@ async def on_message(message):
         print("終了しました")
 
     f = {}
-    with codecs.open('template.txt', 'r', 'utf-8') as text :
-        for line in text :
+    with codecs.open('template.txt', 'r', 'utf-8') as text:
+        for line in text:
             line = line.rstrip('\r\n') #改行の削除
             fields = line.split('^')   #^で分割
             f[fields[0]] = fields[1]   #ディクショナリに追加
-    if message.content in f:
+    keys = f.keys() #キーのリスト化
+    if message.content in keys:
         await client.send_message(message.channel, 'どうぞ！\n{}'.format(f[message.content]))
 
 
