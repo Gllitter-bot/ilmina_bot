@@ -26,17 +26,16 @@ async def on_message(message):
     elif message.content.count("イルミナ"):
         await client.send_message(message.channel, "呼んだ？")
 
-
     dic = {}
     with codecs.open('template.txt', 'r', 'utf-8') as text:
         for line in text:
             line = line.rstrip('\r\n') # 改行の削除
             fields = line.split('^')   # ^で分割
             dic[fields[0]] = fields[1] # ディクショナリに追加
-        keys = dic.keys() # キーのリスト化
-        for value in keys: # keys内の要素の検証
+        keys = dic.keys()
+        for value in keys:
             if message.content.count(value):
-                await client.send_message(message.channel, 'どうぞ！\n{}'.format(dic[value]))
+                await client.send_message(message.channel, "どうぞ！\n{}".format(dic[value]))
                 print("テンプレートを送信:", value)
 
 
