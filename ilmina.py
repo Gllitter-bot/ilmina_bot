@@ -15,10 +15,13 @@ async def on_ready():  # Botの立ち上げ
 
 @client.event
 async def on_message(message):
+    # 試験用
+    # コマンドラインにメッセージを表示
+    print (message.content)
     if message.author == client.user:
         return  # Botのメッセージには反応しない
 
-    elif message.content.startswith("イルミナ"):
+    elif message.content.count("イルミナ"):
         await client.send_message(message.channel, "呼んだ？")
 
     elif message.content.startswith("!exit"):
@@ -26,14 +29,26 @@ async def on_message(message):
         await client.logout() # ログアウトとプログラムの終了
         print("終了しました")
 
-    f = {}
+    pageDic = {}
     with codecs.open('template.txt', 'r', 'utf-8') as text :
         for line in text :
             line = line.rstrip('\r\n') #改行の削除
             fields = line.split('^')   #^で分割
-            f[fields[0]] = fields[1]   #ディクショナリに追加
-    if message.content in f:
-        await client.send_message(message.channel, 'どうぞ！\n{}'.format(f[message.content]))
+            pageDic[fields[0]] = fields[1]   #ディクショナリに追加
+    keys = pageDic.keys()
+    # error:::count(x)のときxはstr必須
+    if message.content.count(keys):
+        await client.send_message(message.channel, 'どうぞ！\n{}'.format(pageDic[message.content]))
 
+# イルミナさんは挨拶する
+async def greeting():
+    print ('a')
+    # 時刻の取得
+    # 挨拶文を決定
+    # メッセージを送信
+    # 他になにか定型文があっても良いかも
 
-client.run('TOKEN_PHRASE')
+if __name__=='__main__':
+    # ilmina.py:52: RuntimeWarning: coroutine 'greeting' was never awaited greeting()
+    # greeting()
+    client.run('TOKEN_PHRASE')
