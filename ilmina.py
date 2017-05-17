@@ -33,8 +33,9 @@ async def on_message(message):
             fields = line.split('^')   #^で分割
             f[fields[0]] = fields[1]   #ディクショナリに追加
     keys = f.keys() #キーのリスト化
-    if message.content in keys:
-        await client.send_message(message.channel, 'どうぞ！\n{}'.format(f[message.content]))
+    for value in keys:
+        if message.content.count(value):
+            await client.send_message(message.channel, 'どうぞ！\n{}'.format(f[value]))
 
 
 client.run('TOKEN_PHRASE')
