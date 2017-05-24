@@ -118,8 +118,10 @@ def get_weather(msg):
             responce_str += '\n\n'.join(forecast_array)
         responce_str += '\n\n' + description
 
-    except Exception:
+    except Exception as e:
         responce_str = "失敗しちゃった…。"
+        print("天気の取得エラー")
+        print(e)
 
     return responce_str
 
